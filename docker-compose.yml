@@ -1,5 +1,6 @@
 # This compose file is for demonstration only, do not use in prod.
 version: "3.9"
+
 services:
   app:
     depends_on:
@@ -13,10 +14,9 @@ services:
     environment:
       - TRUST_PROXY_HEADER=1
       - DB_URL=postgres://postgres:p0stgr3s@postgres:5432/logto
-      # Mandatory for GitPod to map host env to the container, thus GitPod can dynamically configure the public URL of Logto;
-      # Or, you can leverage it for local testing.
       - ENDPOINT
       - ADMIN_ENDPOINT
+
   postgres:
     image: postgres:17-alpine
     user: postgres
@@ -28,3 +28,5 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
